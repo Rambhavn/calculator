@@ -1,0 +1,104 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-blue-100 border-2 border-blue-500 rounded-lg p-4 w-80">
+        <div class="flex justify-between items-center mb-2">
+            <div class="text-sm text-blue-600">
+                <i class="fas fa-star text-yellow-500"></i> Add to Favorites
+            </div>
+            <div class="text-blue-600 font-bold">Calculator-1.com</div>
+        </div>
+        <div class="bg-white border-2 border-gray-300 rounded-lg p-2 mb-2">
+            <div class="text-gray-500 text-sm">M1: 0</div>
+            <div id="display" class="text-right text-3xl font-bold">0</div>
+            <div class="text-right text-gray-500 text-sm">0</div>
+        </div>
+        <div class="text-gray-500 text-sm mb-2">Mathematical</div>
+        <div class="grid grid-cols-4 gap-2">
+            <button class="bg-gray-300 p-2 rounded" onclick="clearMemory()">MC</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="recallMemory()">MR</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="memorySubtract()">M-</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="memoryAdd()">M+</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('(')">(</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter(')')">)</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('√')">√</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('%')">%</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('7')">7</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('8')">8</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('9')">9</button>
+            <button class="bg-gray-500 text-white p-2 rounded" onclick="appendCharacter('/')">÷</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('4')">4</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('5')">5</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('6')">6</button>
+            <button class="bg-gray-500 text-white p-2 rounded" onclick="appendCharacter('*')">x</button>
+            <button class="bg-red-500 text-white p-2 rounded" onclick="clearAll()">AC</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('1')">1</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('2')">2</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('3')">3</button>
+            <button class="bg-gray-500 text-white p-2 rounded" onclick="appendCharacter('-')">-</button>
+            <button class="bg-red-500 text-white p-2 rounded" onclick="clearEntry()">C</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('0')">0</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('00')">00</button>
+            <button class="bg-gray-300 p-2 rounded" onclick="appendCharacter('.')">.</button>
+            <button class="bg-blue-500 text-white p-2 rounded col-span-2" onclick="calculate()">=</button>
+            <button class="bg-gray-500 text-white p-2 rounded" onclick="appendCharacter('+')">+</button>
+        </div>
+        <div class="flex justify-between items-center mt-2 text-gray-500 text-sm">
+            <div>Decimal places - 2 <a href="#" class="text-blue-600">change</a></div>
+            <div>PC/Mobile</div>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let memory = 0;
+
+        function appendCharacter(character) {
+            if (display.innerText === '0') {
+                display.innerText = character;
+            } else {
+                display.innerText += character;
+            }
+        }
+
+        function clearAll() {
+            display.innerText = '0';
+        }
+
+        function clearEntry() {
+            display.innerText = display.innerText.slice(0, -1);
+            if (display.innerText === '') {
+                display.innerText = '0';
+            }
+        }
+
+        function calculate() {
+            try {
+                let result = eval(display.innerText.replace('√', 'Math.sqrt'));
+                display.innerText = result;
+            } catch (error) {
+                display.innerText = 'Error';
+            }
+        }
+
+        function clearMemory() {
+            memory = 0;
+        }
+
+        function recallMemory() {
+            display.innerText = memory;
+        }
+
+        function memoryAdd() {
+            memory += parseFloat(display.innerText);
+        }
+
+        function memorySubtract() {
+            memory -= parseFloat(display.innerText);
+        }
+    </script>
+</body>
+</html>
